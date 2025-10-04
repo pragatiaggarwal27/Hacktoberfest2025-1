@@ -1,0 +1,30 @@
+class Solution {
+public: 
+   int setbits(int n){
+       int x=0;
+       while(n>0){
+           x+=(n%2);
+           n=n/2;
+       }
+       return x;
+   }
+    long long countExcellentPairs(vector<int>& nums, int k) {
+        vector<int>freq(40,0);
+        unordered_set<int>st;
+        for(auto it:nums){
+            st.insert(it);
+        }
+        for(auto it:st){
+            freq[setbits(it)]++;
+        }
+        long long ans=0;
+        for(auto it:st){
+            int temp=setbits(it);
+            int h=max(0,k-temp);
+            for(int i=h;i<40;i++){
+                ans+=freq[i];
+            }
+        }
+        return ans;
+    }
+};
